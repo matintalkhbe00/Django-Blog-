@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # project app
     'home_app',
+    'account_app',
 ]
 
 MIDDLEWARE = [
@@ -53,11 +54,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Blogproject_pro.urls'
-
 TEMPLATES = [
     {
+
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates' , os.path.join(BASE_DIR , 'home_app/template')]
+        'DIRS': [BASE_DIR / 'templates' , os.path.join(BASE_DIR , 'home_app/template') , os.path.join(BASE_DIR , 'account_app/template') , ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
