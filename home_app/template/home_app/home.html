@@ -102,17 +102,21 @@ https://templatemo.com/tm-551-stand-blog
                     <li class="nav-item">
                         {% if user.is_authenticated %}
                             <div class="d-flex">
+                            {% if user.first_name %}
                                 <a class="nav-link" href="">{{ user.first_name }} {{ user.last_name }}</a>
-                                <a class="nav-link badge badge-danger my-auto" href="/logout">log out</a>
+                                {% else %}
+                                <a class="nav-link" href="">{{ user.username }}</a>
+                                {% endif %}
+                                <a class="nav-link badge badge-danger my-auto" href="{% url 'account_app:logout' %}">log out</a>
                             </div>
                         {% else %}
                             <div class="d-flex" style="margin-top: 5px">
 
-                                <a class="nav-link badge badge-success" href="/singin"
+                                <a class="nav-link badge badge-success" href="{% url 'account_app:singin' %}"
                                 >Sing in </a
                                 >
 
-                                <a class="nav-link badge badge-danger" href="/singup" style="margin-left:15px "
+                                <a class="nav-link badge badge-danger" href="{% url 'account_app:singup' %}" style="margin-left:15px "
                                 >sing up </a
                                 >
                             </div>

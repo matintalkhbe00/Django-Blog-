@@ -32,7 +32,7 @@
                   ></label>
                   <input
                     type="text"
-                    name="name"
+                    name="username"
                     id="name"
                     placeholder="Your Name"
                   />
@@ -50,7 +50,7 @@
                   <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                   <input
                     type="password"
-                    name="password"
+                    name="password1"
                     id="pass"
                     placeholder="Password"
                   />
@@ -61,7 +61,7 @@
                   ></label>
                   <input
                     type="password"
-                    name="re_password"
+                    name="password2"
                     id="re_pass"
                     placeholder="Repeat your password"
                   />
@@ -96,7 +96,7 @@
                   alt="sing up image"
                 />
               </figure>
-              <a href="/singin" class="signup-image-link">I am already member</a>
+              <a href="{% url 'account_app:singin' %}" class="signup-image-link">I am already member</a>
             </div>
           </div>
         </div>
