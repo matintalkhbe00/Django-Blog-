@@ -1,0 +1,91 @@
+{% load static %}
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% static 'home_app/index.html' %}"
+            ><h2>Stand Blog<em>.</em></h2></a
+            >
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home_app:homepage' %}"
+                        >Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% static 'home_app/about.html' %}"
+                        >About Us</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:post_list' %}"
+                        >Blog Entries</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home_app/post-details.html"
+                        >Post Details</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% static 'home_app/contact.html' %}"
+                        >Contact Us</a
+                        >
+                    </li>
+                    {#                    sing in or sing up template#}
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <div class="d-flex">
+                                {% if user.first_name %}
+                                    {% if user.profile.profile_pic %}
+                                        <span><img src="{{ user.profile.profile_pic.url }}" alt="profile img"
+                                                   height="25px" width="25px" style="border-radius: 100% "></span>
+                                    {% else %}
+                                        <span><img src="{% static 'icon/img.png' %}" alt="profile img" height="25px"
+                                                   width="25px" style="border-radius: 100% "></span>
+                                    {% endif %}
+                                    <a class="nav-link" href="">{{ user.first_name }} {{ user.last_name }}</a>
+                                {% else %}
+                                    {% if user.profile.profile_pic %}
+                                        <span><img src="{{ user.profile.profile_pic.url }}" alt="profile img"
+                                                   height="25px" width="25px" style="border-radius: 100% "></span>
+                                    {% else %}
+                                        <span><img src="{% static 'icon/img.png' %}" alt="profile img" height="25px"
+                                                   width="25px" style="border-radius: 100% "></span>
+                                    {% endif %}
+                                    <a class="nav-link" href="">{{ user.username }}</a>
+                                {% endif %}
+                                <a class="nav-link badge badge-danger my-auto" href="{% url 'account_app:logout' %}">log
+                                    out</a>
+                            </div>
+                        {% else %}
+                            <div class="d-flex" style="margin-top: 5px">
+
+                                <a class="nav-link badge badge-success" href="{% url 'account_app:singin' %}"
+                                >sign in </a
+                                >
+
+                                <a class="nav-link badge badge-danger" href="{% url 'account_app:singup' %}"
+                                   style="margin-left:15px "
+                                >sign up </a
+                                >
+                            </div>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
