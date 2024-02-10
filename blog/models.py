@@ -22,7 +22,7 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.PROTECT)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category , related_name="posts")
     title = models.CharField(max_length=70)     # unique_for_date='pub_date'
     body = models.TextField()
     img = models.ImageField(upload_to='post/' , null=True )

@@ -15,3 +15,6 @@ def home(request):
                       'posts': posts,
                       'post_recently': post_recently,
                       'posts_show': posts_show})
+
+
+# we can use ("django render partial") library for address (more information "https://pypi.org/project/django-render-partial/")

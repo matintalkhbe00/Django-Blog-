@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0b0g36jr-1uj@9h5unp=!ca2%!v#j1wlb21ap@qs32lm5rw@c=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     # library
     'django_cleanup.apps.CleanupConfig',
+    # 'django_social_share',
+
 ]
 
 MIDDLEWARE = [
@@ -71,7 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'context_processors.context_processors.recent_posts'
+                'context_processors.context_processors.recent_posts',
+                'context_processors.context_processors.categories',
             ],
         },
     },
