@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 
 # why we using blank in django
+# we can create a profile for users
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True , null=True)
