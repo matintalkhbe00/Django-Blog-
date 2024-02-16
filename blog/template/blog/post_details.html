@@ -106,10 +106,11 @@
 
                                                     <li>
                                                         <div class="author-thumb">
-                                                            {% if comment.user.img %}
-                                                                <img src="{{ comment.user.img.url }}" alt="">
+                                                            {% if comment.user.profile.profile_pic %}
+                                                                <img src="{{ comment.user.profile.profile_pic.url }}"
+                                                                     alt="">
                                                             {% else %}
-                                                                <img src="icon/img.png" alt="">
+                                                                <img src="{% static 'icon/img.png' %}" alt="">
                                                             {% endif %}
                                                         </div>
                                                         <div class="right-content">
@@ -126,7 +127,12 @@
                                                     {% for replay in comment.replay.all %}
                                                         <li class="replied">
                                                             <div class="author-thumb">
-                                                                <img src="assets/images/comment-author-02.jpg" alt="">
+                                                                {% if comment.user.profile.profile_pic %}
+                                                                    <img src="{{ comment.user.profile.profile_pic.url }}"
+                                                                         alt="">
+                                                                {% else %}
+                                                                    <img src="{% static 'icon/img.png' %}" alt="">
+                                                                {% endif %}
                                                             </div>
                                                             <div class="right-content">
                                                                 <h4>{{ replay.user.username }}<span>{{ replay.created }}</span>
