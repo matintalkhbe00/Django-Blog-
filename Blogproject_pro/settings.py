@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,13 +41,12 @@ INSTALLED_APPS = [
     'home_app',
     'account_app',
     'blog',
-
+    'context_processors',
     # library
-    'django_cleanup.apps.CleanupConfig',
-    # 'django_social_share',
+    "django_cleanup",
+    "django_social_share",
 
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
