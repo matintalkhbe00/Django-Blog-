@@ -28,3 +28,11 @@ def categories_post(request, pk=None):
     category = get_object_or_404(Category, id=pk)
     posts = category.posts.all()
     return render(request, "blog/posts_list.html", context={'posts': posts})
+
+
+def search_post(request):
+    query = request.GET.get('q')
+    posts = Post.objects.filter(title__icontains=query)
+    paginator = Paginator(posts, 1)
+    object_list = paginator.get_page(request.GET.get('page'))
+    return render(request, "blog/posts_list.html", context={'posts': object_list})
