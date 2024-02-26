@@ -1,15 +1,19 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.template.backends import django
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
+
+
 # Create your models here.
-class Category (models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=100)
     create = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
 
 class PostManager(models.Manager):
     def counter_post(self):
@@ -19,32 +23,30 @@ class PostManager(models.Manager):
         return len(self.all().filter(status=1))
 
 
-
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.PROTECT)
-    category = models.ManyToManyField(Category , related_name="posts")
-    title = models.CharField(max_length=70)     # unique_for_date='pub_date'
+    category = models.ManyToManyField(Category, related_name="posts")
+    title = models.CharField(max_length=70)  # unique_for_date='pub_date'
     body = models.TextField()
-    img = models.ImageField(upload_to='post/' , null=True )
+    img = models.ImageField(upload_to='post/', null=True)
     create = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
-    slug = models.SlugField(blank=True , unique=True)
+    slug = models.SlugField(blank=True, unique=True)
     objects = models.Manager()
     costume_manager = PostManager()
+
     # pub_date = models.DateTimeField(default=timezone.now())
 
     class Meta:
         ordering = ('-create',)
 
-
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         self.slug = slugify(self.title)
-        super(Post,self).save()
-
+        super(Post, self).save()
 
     def get_absolute_url(self):
         return reverse('blog:post_data', args=[self.id])
@@ -52,12 +54,27 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.body[:30]}'
 
+
 class Comment(models.Model):
-    post = models.ForeignKey(Post , on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name="replay" )
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="replay")
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.get_full_name() + ' - '+self.body[:30]
+        return self.user.get_full_name() + ' - ' + self.body[:30]
+
+
+
+class Message(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    email = models.EmailField()
+    date = models.DateTimeField(default="2020-05-01")
+    created = models.DateTimeField(auto_now_add=True , null=True)
+
+    def __str__(self):
+        return self.title + ' - ' + self.text[:10]
+
+
