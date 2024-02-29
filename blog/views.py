@@ -43,10 +43,12 @@ def contact_us(request):
 
         form = MessageForm(data=request.POST)
         if form.is_valid():
-            title = form.cleaned_data['title']
-            text = form.cleaned_data['text']
-            email = form.cleaned_data['email']
-            Message.objects.create(title=title, text=text, email=email)
+            # title = form.cleaned_data['title']
+            # text = form.cleaned_data['text']
+            # email = form.cleaned_data['email']
+            # Message.objects.create(title=title, text=text, email=email)
+            #or we can :
+            form.save()
             return redirect('home_app:homepage')
     else:
         form = MessageForm()

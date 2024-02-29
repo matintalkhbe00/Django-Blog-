@@ -71,7 +71,7 @@ class Message(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     email = models.EmailField()
-    date = models.DateTimeField(default="2020-05-01")
+    age = models.IntegerField(default=18)
     created = models.DateTimeField(auto_now_add=True , null=True)
 
     def __str__(self):
