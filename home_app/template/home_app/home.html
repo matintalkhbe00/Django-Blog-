@@ -90,7 +90,8 @@
                                                 <li><a href="#">{{ post.create }}</a></li>
                                                 <li><a href="#">12 Comments</a></li>
                                             </ul>
-                                            <p>{{ post.body }}</p>
+                                            <p>{{ post.body|truncatewords:30 }}</p>
+
                                             <div class="post-options">
                                                 <div class="row">
                                                     <div class="col-6">
