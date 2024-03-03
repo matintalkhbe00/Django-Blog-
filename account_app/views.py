@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login , logout
+from .forms import User_Edit_Form
 # Create your views here.
 def SingIn(request):
     if request.user.is_authenticated:
@@ -17,7 +18,7 @@ def SingIn(request):
 
 
 
-    return render(request , 'account_app/sing_in.html')
+
 
 def SingUp(request):
     if request.user.is_authenticated:
@@ -37,3 +38,14 @@ def SingUp(request):
 def Logout(request):
     logout(request)
     return redirect('home_app:homepage')
+
+
+def Edit(request):
+    user = request.user
+    form = User_Edit_Form(instance=user)
+    if request.method == 'POST':
+        form = User_Edit_Form(instance=user, data=request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(request , 'account_app/edit_user.html' , {'form':form})
