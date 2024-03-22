@@ -1,6 +1,9 @@
+import datetime
+
 from django import template
 
 register = template.Library()
+
 
 @register.filter()
 def number_cuter(number):
@@ -22,3 +25,8 @@ def number_cuter(number):
 
     # Join the groups with commas and return the result
     return sign + ','.join(reversed(groups))
+
+
+@register.simple_tag
+def current_time(format_string):
+    return datetime.datetime.now().strftime(format_string)

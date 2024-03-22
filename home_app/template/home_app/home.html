@@ -6,6 +6,7 @@
     Stand Blog Home
 {% endblock %}
 {% block contexts %}
+{% load filters %}
 
     <!-- Page Content -->
     <!-- Banner Starts Here -->
@@ -45,7 +46,7 @@
                     <div class="main-content">
                         <div class="row">
                             <div class="col-lg-8">
-                                <span>Stand Blog HTML5 Template</span>
+                                <span>{% current_time "%Y-%m-%d %I:%M %p" %}</span>
                                 <h4>Creative HTML Template For Bloggers!</h4>
                             </div>
                             <div class="col-lg-4">

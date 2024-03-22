@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from blog.models import Post, Category, Comment, Message
+from django.views.generic import DetailView
+
+from blog.models import Post, Category, Comment, Message,Like
 from django.core.paginator import Paginator
 from .forms import Contact_us_form , MessageForm
-
+from django.views.generic.base import TemplateView
 # Create your views here.
 
 
@@ -53,3 +56,27 @@ def contact_us(request):
     else:
         form = MessageForm()
     return render(request , "blog/contactus.html" , {'form':form})
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_details.html'
+
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+            context = super().get_context_data()
+            if self.request.user.like.filter(user_id=self.request.user.id , post__slug=self.object.slug).exists():
+                context['is_like'] = True
+            else:
+                context['is_like'] = False
+            return context
+
+def like_post(request, slug , pk):
+
+    try:
+        like = Like.objects.get(post__slug=slug , user_id=request.user.id)
+        like.delete()
+        return JsonResponse({"response": "unliked"})
+    except:
+        Like.objects.create(post_id=pk , user_id=request.user.id)
+        return JsonResponse({"response": "liked"})
+

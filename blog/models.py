@@ -3,6 +3,7 @@ from django.db import models
 from django.template.backends import django
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.text import slugify
 
 
@@ -14,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    # class Meta:
+    #     verbose_name = ''
+    #     verbose_name_plural = ''
 
 class PostManager(models.Manager):
     def counter_post(self):
@@ -28,7 +32,7 @@ class Post(models.Model):
     category = models.ManyToManyField(Category, related_name="posts")
     title = models.CharField(max_length=70)  # unique_for_date='pub_date'
     body = models.TextField()
-    img = models.ImageField(upload_to='post/', null=True)
+    img = models.ImageField(upload_to='post/', null=True ,blank=True)
     create = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=False)
@@ -42,6 +46,11 @@ class Post(models.Model):
     class Meta:
         ordering = ('-create',)
 
+
+    def return_img(self):
+        if self.img:
+            return format_html(f'<img src="{self.img.url}" width="60" height="60" />"')
+        return format_html(f'<h3 style="color: #1da0f2">عکس ندارد</h3>')
     def save(
             self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
@@ -78,3 +87,10 @@ class Message(models.Model):
         return self.title + ' - ' + self.text[:10]
 
 
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="like" )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE , related_name="like")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.post.title}'
