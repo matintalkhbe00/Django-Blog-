@@ -55,20 +55,20 @@
                             <div class="col-lg-12">
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <img src='{{ post.img.url }}' alt={{ post.title }}>
+                                        <img {% if post.img %}src='{{ post.img.url }}'{% else %}src="{% static 'overwite/imgover/img.png' %}" {% endif %}alt={{ post.title }}>
                                     </div>
                                     <div class="down-content">
                                         <span>Lifestyle</span>
-                                        <a href="post-details.html"><h4>{{ post.title }}</h4></a>
+                                        <a><h4>{{ post.title }}</h4></a>
                                         <ul class="post-info">
                                             {% if post.author.get_full_name %}
-                                                <li><a href="#">{{ post.author.get_full_name }}</a></li>
+                                                <li><a>{{ post.author.get_full_name }}</a></li>
                                             {% else %}
-                                                <li><a href="#">{{ post.author }}</a></li>
+                                                <li><a>{{ post.author }}</a></li>
                                             {% endif %}
 
-                                            <li><a href="#">{{ post.create }}</a></li>
-                                            <li><a href="#">10 Comments</a></li>
+                                            <li><a>{{ post.create }}</a></li>
+                                            <li><a>{{ post.comments.all.count }} Comments</a></li>
                                         </ul>
                                         <p>
                                             {{ post.body }}
@@ -99,8 +99,6 @@
                                                 <div class="col-6">
                                                     <ul class="post-share">
                                                         <li><i class="fa fa-share-alt"></i></li>
-                                                        <li><a href="#">Facebook</a>,</li>
-                                                        <li><a href="#"> Twitter</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -111,7 +109,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item comments">
                                     <div class="sidebar-heading">
-                                        <h2>4 comments</h2>
+                                        <h2>{{ post.comments.all.count }} comments</h2>
                                     </div>
                                     <div class="content">
                                         <ul>
@@ -173,7 +171,7 @@
                                             <br>
                                         </div>
                                         <div class="content">
-                                            <form id="comment" action="#" method="post">
+                                            <form id="comment" action="" method="POST">
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     <input type="hidden" id="parent_id" name="parent_id" value="">

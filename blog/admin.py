@@ -14,8 +14,8 @@ class FilterByTitle(admin.SimpleListFilter):
         if self.value():
             return queryset.filter(title__icontains=self.value())
 
-class CommentInline(admin.StackedInline):
-    model = models.Comment
+# class CommentInline(admin.StackedInline):
+#     model = models.Comment
 
 
 @admin.register(models.Post)
@@ -24,7 +24,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ['status', 'published', FilterByTitle]
     list_editable = ['published']
     search_fields = ('title', 'body')
-    inlines = [CommentInline]
+    # inlines = [CommentInline]
 
 
 # Register your models here.

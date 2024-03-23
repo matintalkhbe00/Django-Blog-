@@ -20,6 +20,11 @@ def post_detail(request, slug):
 
 def posts_list(request):
     posts = Post.objects.all()
+    posts_has_img = []
+    for post in posts:
+        if post.img:
+            posts_has_img.append(post)
+    posts = posts_has_img.copy()
     # page_number = request.GET.get('page')
     # recent_posts = Post.objects.order_by('-create')[:3]
     paginator = Paginator(posts, 1)

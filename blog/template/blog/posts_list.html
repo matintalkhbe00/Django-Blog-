@@ -19,30 +19,7 @@
         </section>
     </div>
 
-    <!-- Banner Ends Here -->
 
-    <section class="call-to-action">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="main-content">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <span>Stand Blog HTML5 Template</span>
-                                <h4>Creative HTML Template For Bloggers!</h4>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="main-button">
-                                    <a href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download
-                                        Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
     <section class="blog-posts grid-system">
@@ -55,7 +32,9 @@
                                 <div class="col-lg-6">
                                     <div class="blog-post">
                                         <div class="blog-thumb">
-                                            <img src="{{ post.img.url }}" alt="{{ post.title }}">
+                                            <img {% if post.img %}src='{{ post.img.url }}'
+                                                 {% else %}src="{% static 'overwite/imgover/img.png' %}" {% endif %}
+                                                 alt="{{ post.title }}">
                                         </div>
                                         <div class="down-content">
                                             <span>{{ post.category.all.first }}</span>
@@ -63,16 +42,20 @@
                                             <ul class="post-info">
                                                 <li><a href="#">{{ post.author }}</a></li>
                                                 <li><a href="#">{{ post.create }}</a></li>
-                                                <li><a href="#">12 Comments</a></li>
+                                                <li><a href="#">{{ post.comment }} Comments</a></li>
                                             </ul>
                                             <p>{{ post.body }}</p>
                                             <div class="post-options">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <ul class="post-tags">
-                                                            <li><i class="fa fa-tags"></i></li>
-                                                            <li><a href="#">Best Templates</a>,</li>
-                                                            <li><a href="#">TemplateMo</a></li>
+                                                            <li><h5><i
+                                                                    id="like"
+                                                                    class="fa fa-heart"
+                                                                    style="font-size:20px "></i><span
+                                                                    id="count">{{ post.like.all.count }}</span></h5>
+
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -90,6 +73,7 @@
 
 
 
+
                                                     {{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
                                                     class="fa fa-angle-double-left"></i></a></li>
                                         {% endif %}
@@ -99,10 +83,12 @@
 
 
 
+
                                                         {{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a>
                                                 </li>
                                             {% else %}
                                                 <li><a href="?page=
+
 
 
 
@@ -114,6 +100,7 @@
 
                                         {% if posts.has_next %}
                                             <li><a href="?page=
+
 
 
 
