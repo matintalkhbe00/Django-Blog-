@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
+
 from blog.models import Post
 from django.urls import reverse
 
@@ -18,3 +20,7 @@ def home(request):
 
 
 # we can use ("django render partial") library for address (more information "https://pypi.org/project/django-render-partial/")
+
+
+def AboutUs(request):
+    return render(request , 'home_app/aboutus.html')
