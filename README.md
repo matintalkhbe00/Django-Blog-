@@ -10,6 +10,10 @@ A Django project for a news website where users can post articles in various cat
 - Users can post news articles
 - Categorized posts
 - List of posts displayed by category
+- Commenting on posts
+- Liking posts
+- Changing post status from draft to published and vice versa
+
 
 ## Prerequisites
 
